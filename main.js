@@ -103,9 +103,16 @@
     $('.code-mask').mask('000000', {
       placeholder: code_placeholder
     });
+
     //added mask function for #user_name input
     $('#user_name').mask('+00 (000) 000-00-00', {
       placeholder: '+00 (000) 000-00-00'
+    });
+    $("#user_name").attr('value', '+34');
+    $("#user_name").attr('data-initial', '+');
+    $("#user_name").on("keyup", function () {
+      var value = $(this).val();
+      $(this).val($(this).data("initial") + value.substring(1));
     });
   }
 
@@ -1922,7 +1929,7 @@
     if (_iTel.length) {
       var iTelInit = window.intlTelInput(iTel, {
         nationalMode: true,
-        initialCountry: "auto",
+        initialCountry: "es",
         geoIpLookup: function (callback) {
           $.get('https://ipinfo.io', function () {}, "jsonp").always(function (resp) {
             var countryCode = (resp && resp.country) ? resp.country : "";
